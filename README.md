@@ -106,11 +106,14 @@ cd python
 pytest tests/
 ```
 
-### Useful one-liner for quick local testing
+### Useful one-liners for quick local testing
 
 ```bash
 # Check a bunch of mixed files at once and grep for low-confidence results
 magika --json -r ./samples | python -c "import sys,json; [print(r) for r in json.load(sys.stdin) if r['result']['output']['score'] < 0.7]"
+
+# List only the detected content-type labels, one per line (handy for piping into sort/uniq)
+magika --json -r ./samples | python -c "import sys,json; [print(r['result']['output']['ct_label']) for r in json.load(sys.stdin)]"
 ```
 
 ## Contributing
