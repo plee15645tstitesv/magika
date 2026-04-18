@@ -106,6 +106,13 @@ cd python
 pytest tests/
 ```
 
+### Useful one-liner for quick local testing
+
+```bash
+# Check a bunch of mixed files at once and grep for low-confidence results
+magika --json -r ./samples | python -c "import sys,json; [print(r) for r in json.load(sys.stdin) if r['result']['output']['score'] < 0.7]"
+```
+
 ## Contributing
 
 Contributions are welcome! Please read our contributing guidelines and check existing issues before opening a new one.
