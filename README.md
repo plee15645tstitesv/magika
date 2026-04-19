@@ -117,16 +117,11 @@ magika --json -r ./samples | python -c "import sys,json; [print(r['result']['out
 
 # Count occurrences of each detected type (my most-used snippet)
 magika --json -r ./samples | python -c "import sys,json,collections; c=collections.Counter(r['result']['output']['ct_label'] for r in json.load(sys.stdin)); [print(f'{v:>6}  {k}') for k,v in c.most_common()]"
+
+# Show only unknown/low-confidence files with their paths — useful when triaging a new dataset
+magika --json -r ./samples | python -c "import sys,json; [print(r['path'], r['result']['output']['ct_label'], r['result']['output']['score']) for r in json.load(sys.stdin) if r['result']['output']['ct_label'] == 'unknown' or r['result']['output']['score'] < 0.5]"
 ```
 
 ## Contributing
 
-Contributions are welcome! Please read our contributing guidelines and check existing issues before opening a new one.
-
-When reporting a misdetection, please use the [misdetection issue template](.github/ISSUE_TEMPLATE/misdetection.md).
-
-## License
-
-Apache 2.0 — see [LICENSE](LICENSE) for details.
-
-This project is a fork of [google/magika](https://github.com/google/magika).
+Contributions are welcome! Please read our contributing guideline
