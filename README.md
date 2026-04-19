@@ -114,6 +114,9 @@ magika --json -r ./samples | python -c "import sys,json; [print(r) for r in json
 
 # List only the detected content-type labels, one per line (handy for piping into sort/uniq)
 magika --json -r ./samples | python -c "import sys,json; [print(r['result']['output']['ct_label']) for r in json.load(sys.stdin)]"
+
+# Count occurrences of each detected type (my most-used snippet)
+magika --json -r ./samples | python -c "import sys,json,collections; c=collections.Counter(r['result']['output']['ct_label'] for r in json.load(sys.stdin)); [print(f'{v:>6}  {k}') for k,v in c.most_common()]"
 ```
 
 ## Contributing
@@ -126,4 +129,4 @@ When reporting a misdetection, please use the [misdetection issue template](.git
 
 Apache 2.0 — see [LICENSE](LICENSE) for details.
 
-This project is a fork of [google/magika](https://github.com/google/magika), which is also licensed under Apache 2.0.
+This project is a fork of [google/magika](https://github.com/google/magika).
